@@ -1,116 +1,84 @@
-# Event Management Platform
+# Study-Planner
 
-This repository contains the event management platform I built using React, TypeScript, and a modern web stack.  
-It lets people create, discover, and manage events with an intuitive interface and a focus on clean, responsive design.
+## Introduction
 
-## 🌟 Features
+Study-Planner is a powerful tool designed to help students efficiently organize their study schedules. It provides a user-friendly interface to create, manage, and track study sessions, tasks, and academic goals. Whether you are preparing for exams or managing daily coursework, Study-Planner streamlines your study routine for better productivity.
 
-### Event Management
-- **Create Events**: Easy-to-use form with image upload, date/time selection, and location integration
-- **Edit Events**: Update your events anytime with full editing capabilities
-- **Delete Events**: Remove events you've created with confirmation dialog
-- **Event Discovery**: Browse all upcoming events in a beautiful card layout
-- **Event Details**: Rich event pages with countdown timers, location maps, and registration
+## Features
 
-### User Authentication
-- **Secure Sign Up/Login**: Email and password authentication with automatic email confirmation
-- **User Profiles**: Automatic profile creation with display names
-- **Protected Routes**: Secure admin and event management pages
-- **Session Management**: Persistent authentication across sessions
+- User registration and authentication
+- Create, edit, and delete study plans
+- Schedule study sessions with customizable time blocks
+- Track completed and pending tasks
+- Visualize progress through dashboards and statistics
+- Responsive interface for desktop and mobile devices
+- Persistent data storage using backend integration
 
-### Location Integration
-- **Google Maps Autocomplete**: Search and select locations with autocomplete suggestions
-- **Interactive Maps**: Embedded Google Maps on event detail pages
-- **Get Directions**: Direct links to Google Maps for navigation
+## Requirements
 
-### Image Management
-- **Image Upload**: Drag-and-drop or click to upload event images
-- **File Validation**: Automatic validation for file type (JPG, PNG, GIF, WebP) and size (max 5MB)
-- **Secure Storage**: Images stored securely in cloud storage
+To run Study-Planner, ensure your system meets the following requirements:
 
-### Admin Features
-- **Admin Dashboard**: Manage all events from a centralized dashboard
-- **Event Moderation**: View, edit, or delete any event
-- **User Management**: Access to user profiles and event data
+- Node.js (v14 or higher)
+- npm or yarn package manager
+- MongoDB (for persistent backend storage)
+- Modern web browser (Chrome, Firefox, Edge, Safari)
 
-### SEO Optimized
-- **Meta Tags**: Proper title, description, and keywords for each page
-- **Semantic HTML**: Structured markup for better search engine visibility
-- **Open Graph Tags**: Social media preview optimization
-- **Responsive Design**: Mobile-first design that works on all devices
+## Installation
 
-## How can I edit this code?
+Follow these steps to set up Study-Planner on your local machine:
 
-There are several ways of editing your application.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Aditya-idgf/Study-Planner.git
+   cd Study-Planner
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Configure environment variables (see Configuration section).
+4. Start the development server:
+   ```bash
+   npm start
+   ```
+5. Open your browser and navigate to `http://localhost:3000`.
 
-**Use your preferred IDE**
+## Usage
 
-If you want to work locally using your own IDE, you can clone this repo and push changes.
+After installation, you can start organizing your study plans:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- Register a new account or log in.
+- Create a new study plan by specifying your subjects and goals.
+- Add study sessions, set times, and allocate resources.
+- Mark tasks as completed as you progress.
+- Use the dashboard to monitor your progress and adjust your schedule.
 
 ## Configuration
 
-### Google Maps Places Autocomplete
+You can customize Study-Planner to suit your preferences:
 
-This project uses Google Maps Places API for location autocomplete. To enable this feature:
+- Database settings: Set your MongoDB connection string in the `.env` file.
+- Port and server settings: Adjust the server port in the configuration files.
+- Optional integrations: Enable email notifications or calendar sync by updating the relevant configuration sections.
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select an existing one
-3. Enable the **Places API (New)** in the API Library
-4. Go to **Credentials** → **Create Credentials** → **API Key**
-5. Copy the API key
-6. Add it to your `.env` file:
-   ```
-   VITE_GOOGLE_MAPS_API_KEY="your-api-key-here"
-   ```
+Example `.env` file:
+```
+MONGO_URI=mongodb://localhost:27017/studyplanner
+PORT=3000
+JWT_SECRET=your_secret_key
+```
 
-**Optional but recommended:** Restrict your API key to only work with the Places API and your domain for security.
+## Contributing
 
-## How can I deploy this project?
+We welcome contributions from the community! To contribute:
 
-You can deploy this project using various hosting platforms such as Vercel, Netlify, GitHub Pages, or any other static hosting service.
+- Fork the repository and create your branch.
+- Make your changes with clear commit messages.
+- Ensure all tests pass and the app works as expected.
+- Submit a pull request describing your changes.
 
-## Can I connect a custom domain?
+For major changes, please open an issue first to discuss what you would like to change.
 
-Yes, you can connect a custom domain through your hosting provider's domain settings.
+## License
+
+This project is licensed under the MIT License. You are free to use, modify, and distribute this software with proper attribution. See the LICENSE file for more details.
