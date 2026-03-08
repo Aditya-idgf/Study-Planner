@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { useAuth } from './AuthContext';
 
 export interface Subtopic {
   id: string;
@@ -48,11 +49,16 @@ interface StudyContextType {
 
 const StudyContext = createContext<StudyContextType | null>(null);
 
-const STORAGE_KEY = 'ai-study-planner-data';
-const TIMER_KEY = 'ai-study-planner-timer';
+const STORAGE_KEY_BASE = 'ai-study-planner-data';
+const TIMER_KEY_BASE = 'ai-study-planner-timer';
 
 export const StudyProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { user } = useAuth();
+  const STORAGE_KEY = user ? `${STORAGE_KEY_BASE}-${user.id}` : STORAGE_KEY_BASE;
+  const TIMER_KEY = user ? `${TIMER_KEY_BASE}-${user.id}` : TIMER_KEY_BASE;
+
   const [topics, setTopics] = useState<Topic[]>(() => {
+    // Wait until user is loaded for initial state if possible, though React initializes this immediately
     const saved = localStorage.getItem(STORAGE_KEY);
     return saved ? JSON.parse(saved) : [];
   });
@@ -61,6 +67,15 @@ export const StudyProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const saved = localStorage.getItem(TIMER_KEY);
     return saved ? JSON.parse(saved) : { topicId: null, isRunning: false, elapsed: 0 };
   });
+
+  // Re-load data when user switches
+  useEffect(() => {
+    const savedTopics = localStorage.getItem(STORAGE_KEY);
+    setTopics(savedTopics ? JSON.parse(savedTopics) : []);
+    
+    const savedTimer = localStorage.getItem(TIMER_KEY);
+    setTimer(savedTimer ? JSON.parse(savedTimer) : { topicId: null, isRunning: false, elapsed: 0 });
+  }, [user?.id, STORAGE_KEY, TIMER_KEY]);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(topics));

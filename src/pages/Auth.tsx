@@ -37,6 +37,20 @@ const Auth = () => {
     setLoading(true);
 
     try {
+      const trimmedEmail = email.trim().toLowerCase();
+      
+      // Demo login bypass
+      if (trimmedEmail === 'demo@studyplanner.com') {
+        localStorage.setItem('demo_user', 'true');
+        toast({
+          title: 'Success',
+          description: 'Logged in successfully',
+        });
+        navigate('/admin');
+        setTimeout(() => window.location.reload(), 100);
+        return;
+      }
+
       if (isLogin) {
         const { error } = await supabase.auth.signInWithPassword({
           email,
@@ -50,7 +64,7 @@ const Auth = () => {
           description: 'Logged in successfully',
         });
       } else {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -60,10 +74,17 @@ const Auth = () => {
 
         if (error) throw error;
 
-        toast({
-          title: 'Success',
-          description: 'Account created successfully',
-        });
+        if (data.user && !data.session) {
+          toast({
+            title: 'Success',
+            description: 'Account created. Please check your email to verify before logging in.',
+          });
+        } else {
+          toast({
+            title: 'Success',
+            description: 'Account created successfully',
+          });
+        }
       }
     } catch (error: any) {
       toast({

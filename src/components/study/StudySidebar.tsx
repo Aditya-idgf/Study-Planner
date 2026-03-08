@@ -1,6 +1,7 @@
 import { LayoutDashboard, BarChart3, BookOpen, Flame, X } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useStudy } from '@/contexts/StudyContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 
 interface StudySidebarProps {
@@ -16,6 +17,7 @@ const navItems = [
 export const StudySidebar = ({ open, onClose }: StudySidebarProps) => {
   const location = useLocation();
   const { getTotalStreak, topics } = useStudy();
+  const { signOut } = useAuth();
   const streak = getTotalStreak();
 
   return (
@@ -89,11 +91,17 @@ export const StudySidebar = ({ open, onClose }: StudySidebarProps) => {
         </nav>
 
         {/* Footer stats */}
-        <div className="p-6 pt-2">
+        <div className="p-6 pt-2 space-y-4">
           <div className="p-4 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20">
             <p className="text-xs text-primary-foreground/60 uppercase tracking-wider font-medium">Topics</p>
             <p className="text-2xl font-bold text-primary-foreground mt-1">{topics.length}</p>
           </div>
+          <button 
+            onClick={() => signOut()}
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/10 text-white hover:bg-white/20 transition-colors font-medium text-sm border border-white/10"
+          >
+            Sign Out
+          </button>
         </div>
       </aside>
     </>
